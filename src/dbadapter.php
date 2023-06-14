@@ -2,6 +2,8 @@
 //include_once dirname(__FILE__)."/mvc/Configuration.php";
 
 namespace Smartedutech\Littlemvc;
+defined('__APP_PATH__') || define('__APP_PATH__', dirname(__FILE__)."/..");
+
 use Smartedutech\Littlemvc\mvc\Configuration;
 
 

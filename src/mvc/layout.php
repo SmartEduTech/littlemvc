@@ -16,11 +16,11 @@ class layout
     public function generate(&$view)
     {
         $this->view=$view;
-        if(!file_exists(dirname(__FILE__)."/../../blocapp/views/layout/".$this->layoutname.".phtml")){
-            throw new Exception("Le fichier ".$this->layoutname." de calque de sortie n'existe pas pour ");
+        if(!file_exists(__APP_PATH__."/blocapp/views/layout/".$this->layoutname.".phtml")){
+            throw new \Exception("Le fichier ".$this->layoutname." de calque de sortie n'existe pas pour ");
             die();
         }
-        include_once dirname(__FILE__)."/../../blocapp/views/layout/".$this->layoutname.".phtml";
+        include_once __APP_PATH__."/blocapp/views/layout/".$this->layoutname.".phtml";
 
     }
 }

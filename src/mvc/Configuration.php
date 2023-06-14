@@ -9,7 +9,7 @@ abstract class Configuration{
 
     public static  function config(){
         try {
-            $_pathconfig= dirname(__FILE__)."/../../config/config.ini";
+            $_pathconfig= __APP_PATH__."/config/config.ini";
             if(!file_exists($_pathconfig)){
                 throw new \Exception("Erreur de fichier de configuration");
             }

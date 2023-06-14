@@ -2,7 +2,7 @@
  
 namespace Smartedutech\Littlemvc\mvc;
 use Smartedutech\Littlemvc\mvc\Application;
-//include_once dirname(__FILE__) . "/Application.php";
+//include_once __APP_PATH__ . "/Application.php";
 
 abstract class Controlurl
 {
@@ -25,12 +25,12 @@ abstract class Controlurl
 
     static  public function view($class,$method,$data=array()){
         self::$data=$data;
-        include_once dirname(__FILE__)."/../../blocapp/modules/".Application::$Module."/views/".$class."/".$method.".phtml";
+        include_once __APP_PATH__."/blocapp/modules/".Application::$Module."/views/".$class."/".$method.".phtml";
     }
 
     static public function form($formname,$data=array()){
         self::$data=$data;
-        include_once dirname(__FILE__)."/../../blocapp/modules/".Application::$Module."/Forms/".$formname.".php";
+        include_once __APP_PATH__."/blocapp/modules/".Application::$Module."/Forms/".$formname.".php";
     }
 
 }

@@ -54,14 +54,14 @@ class View {
             $layout->setlayout($this->layoutname);
             $layout->generate($this);
         }else{
-           // echo dirname(__FILE__)."/../../blocapp/modules/".Application::$Module."/Views/".$this->getCallerClass()."/".$this->getCallerMethode().".phtml";
-            if(!file_exists(dirname(__FILE__)."/../../blocapp/modules/".Application::$Module."/Views/".Application::$Controller."/".$this->getCallerMethode().".phtml")){
+           // echo __APP_PATH__."/blocapp/modules/".Application::$Module."/Views/".$this->getCallerClass()."/".$this->getCallerMethode().".phtml";
+            if(!file_exists(__APP_PATH__."/blocapp/modules/".Application::$Module."/Views/".Application::$Controller."/".$this->getCallerMethode().".phtml")){
 
                 throw new \Exception("Le fichier view n'existe pas pour ".$this->getCallerMethode()." de ". Application::$Controller);
                 die();
             }
 
-            include_once dirname(__FILE__)."/../../blocapp/modules/".Application::$Module."/Views/".Application::$Controller."/".$this->getCallerMethode().".phtml";
+            include_once __APP_PATH__."/blocapp/modules/".Application::$Module."/Views/".Application::$Controller."/".$this->getCallerMethode().".phtml";
         }
 
 

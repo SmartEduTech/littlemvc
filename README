@@ -1,0 +1,1 @@
+  defined('__APP_PATH__') || define('__APP_PATH__', dirname(__FILE__)."/..");

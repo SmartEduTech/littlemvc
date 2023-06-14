@@ -3,7 +3,7 @@
 namespace Smartedutech\Littlemvc\mvc;
 
 //use lib\mvc\Controlurl;
-//include dirname(__FILE__)."/Controlurl.php";
+//include __APP_PATH__."/Controlurl.php";
 
 
 class  Application
@@ -27,7 +27,7 @@ class  Application
 
     }
     public function Run(){
-        include dirname(__FILE__)."/../../config/routes.php";
+        include __APP_PATH__."/config/routes.php";
         global $_Routes;
         $activity=$this->_getRequest("activity","inscription");
 
@@ -55,25 +55,25 @@ class  Application
                     if(!$hasrole){
                         header('Location: index.php?activity=login');
                     }
-                    if(!file_exists(dirname(__FILE__).'/../../blocapp/modules/'.$Module.'/Controllers/'.$Controllername.'.php')){
+                    if(!file_exists(__APP_PATH__.'/blocapp/modules/'.$Module.'/Controllers/'.$Controllername.'.php')){
 
                         throw new \Exception("Pas de Controlleur qui correspond à l'activity : $activity");
                         die();
                     }
-                     // echo dirname(__FILE__).'/../../blocapp/modules/'.$Module.'/Controllers/'.$Controllername.'.php';
-                    //include_once dirname(__FILE__).'/../../blocapp/modules/'.$Module.'/Controllers/'.$Controllername.'.php';
+                     // echo __APP_PATH__.'/../../blocapp/modules/'.$Module.'/Controllers/'.$Controllername.'.php';
+                    //include_once __APP_PATH__.'/../../blocapp/modules/'.$Module.'/Controllers/'.$Controllername.'.php';
                     $classname="blocapp\\modules\\".$Module."\\Controllers\\".$Controllername;
 
                     $loadobj=new $classname;//__autoload()
 
                     $loadobj->{$viewname}();
                 }elseif(empty($activity)) {
-                    if(!file_exists(dirname(__FILE__).'/../../blocapp/modules/default/Controllers/index.php')){
+                    if(!file_exists(__APP_PATH__.'/blocapp/modules/default/Controllers/index.php')){
                         throw new \Exception("Pas de Controlleur qui correspond à l'activity : index");
                         die();
                     }
 
-                    include_once dirname(__FILE__).'/../../blocapp/modules/default/Controllers/index.php';
+                    include_once __APP_PATH__.'/blocapp/modules/default/Controllers/index.php';
 
                     $loadobj=new  index();//__autoload()
                     $loadobj->Acceuil();
