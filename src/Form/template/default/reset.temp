@@ -1,0 +1,1 @@
+<button type="reset" id="{id}" name="{name}"  {autre}>{label}</button>

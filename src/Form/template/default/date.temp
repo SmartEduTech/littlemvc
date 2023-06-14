@@ -1,0 +1,7 @@
+<div class="form-group">
+    <label for="{name}" class="col-sm-2 control-label">{label}</label>
+
+    <div class="col-sm-10">
+        <input type="{type}" class="form-control" id="{id}" name="{name}" placeholder="{pholder}" {autre}>
+    </div>
+</div>

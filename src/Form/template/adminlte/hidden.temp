@@ -1,0 +1,5 @@
+<div class="form-group">
+
+        <input value="{value}" type="{type}" class="form-control" id="{id}" name="{name}" placeholder="{pholder}" {autre}>
+ 
+</div>

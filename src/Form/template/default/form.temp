@@ -1,0 +1,17 @@
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">{Titre}</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form class="form-horizontal" action="{action}" {autre} method="{method}" id="{id}">
+        <div class="box-body">
+             {form_elements}
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+                {form_actions}
+        </div>
+        <!-- /.box-footer -->
+    </form>
+</div>
