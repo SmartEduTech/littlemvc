@@ -74,7 +74,7 @@ abstract class dbadapter
     public static function Select($table,$where=null){
         //self::connect();
         try {
-            $data=false;
+            $data=[];
             $query="SELECT * FROM $table ";
             $query.=!empty($where) ? " where ".$where :'';
 
@@ -91,7 +91,7 @@ abstract class dbadapter
     public static function SelectWithPrepare($table,$where=null,$orderby=""){
         //self::connect();
         try {
-            $data=false;
+            $data=[];
             $query="SELECT * FROM $table ";
              $WhereParam="";
             if(!empty($where)){

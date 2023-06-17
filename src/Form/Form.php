@@ -77,9 +77,16 @@ class  Form{
                     $strElt=str_ireplace("{name}",$elt->getName(),$strElt);
                     $strElt=str_ireplace("{id}",$elt->getId(),$strElt);
                     $strElt=str_ireplace("{label}",Langue::getString($elt->getLabel()),$strElt);
-                    $strElt=str_ireplace("{pholder}",Langue::getString($elt->getPholder()),$strElt);
-                    $strElt=str_ireplace("{value}",$elt->getValue(),$strElt);
-                    $autre=$this->DetectOtherAttrib($elt->getOther());
+					
+					$ee=Langue::getString($elt->getPholder());
+					$ee=$ee ? $ee : ''; 
+                    $strElt=str_ireplace("{pholder}",$ee,$strElt);
+					
+					$ee=$elt->getValue();
+					$ee=$ee ? $ee : '';
+				    $strElt=str_ireplace("{value}",$ee,$strElt);
+                    
+					$autre=$this->DetectOtherAttrib($elt->getOther());
                     $strElt=str_ireplace("{autre}",$autre,$strElt);
                     if($Typ=="select"){
                         $options=$this->options($elt->getList(),$elt->getValue());
