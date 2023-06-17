@@ -1,7 +1,7 @@
 <?php
 
-namespace lib\Form;
-use lib\Langue;
+namespace Smartedutech\Littlemvc\Form;
+use Smartedutech\Littlemvc\Langue;
 
 class  Form{
 
