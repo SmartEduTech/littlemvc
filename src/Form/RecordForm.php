@@ -21,7 +21,7 @@
             ,"label"=>"Titre: "
 
 */
-namespace lib\Form;
+namespace Smartedutech\Littlemvc\Form;
 
 
 class RecordForm implements Record

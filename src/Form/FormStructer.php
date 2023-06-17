@@ -6,7 +6,7 @@
  * Time: 10:07
  */
 
-namespace lib\Form;
+namespace Smartedutech\Littlemvc\Form;
 
 
 class FormStructer

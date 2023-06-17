@@ -6,7 +6,7 @@
  * Time: 14:30
  */
 
-namespace lib\Form;
+namespace Smartedutech\Littlemvc\Form;
 
 
 interface Record
