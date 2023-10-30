@@ -27,15 +27,15 @@ namespace Smartedutech\Littlemvc\Form;
 class RecordForm implements Record
 {
 
-    private $_type;
-    private $_other;
-    private $_class;
-    private $_name;
-    private $_id;
-    private $_pholder;
-    private $_label;
+    private $_type="";
+    private $_other="";
+    private $_class="";
+    private $_name="";
+    private $_id="";
+    private $_pholder="";
+    private $_label="";
     private $_list;
-    private $_Value;
+    private $_Value="";
 
     /**
      * @return mixed
