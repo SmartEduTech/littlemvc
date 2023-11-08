@@ -87,11 +87,94 @@ abstract class dbadapter
             die();
         }
     }
+    public static function SelectWithSqlStringPrepare($query,$where=null,$orderby=""){
+        //self::connect();
+        try {
+            $data=$Attributs=[];
+            $stmt=self::$dbh->prepare($query);
+            // $WhereParam="";
+            if(!empty($where)){
 
+                foreach ($where as $Cond){
+                    if(isset($Cond->OR)){
+                        $AttributsWhereOR= self::AttributeExtractor($Cond->OR);
+                        $Attributs =array_merge($Attributs,$AttributsWhereOR);
+
+                       /* foreach ($AttributsWhereOR as $Attrib=>$ValueAttrib){
+                            $WhereParam.=empty($WhereParam) ? "$Attrib=:$Attrib" : " OR $Attrib=:$Attrib";
+                        }*/
+                    }elseif(isset($Cond->AND)){
+                        $AttributsWhereAnd= self::AttributeExtractor($Cond->AND);
+                        $Attributs =array_merge($Attributs,$AttributsWhereAnd);
+
+                       /* print_r($AttributsWhereAnd);
+                        foreach ($AttributsWhereAnd as $Attrib=>$ValueAttrib){
+                            $WhereParam.=empty($WhereParam) ? "$Attrib=:$Attrib" : " AND $Attrib=:$Attrib";
+                        }*/
+                    }else{
+                        $AttributsWhereAnd= self::AttributeExtractor($Cond);
+                        $Attributs =array_merge($Attributs,$AttributsWhereAnd);
+                    }
+                } 
+
+            }else{
+			/*	if(!empty($orderby)){
+					$query.=" $orderby";
+				}
+                $stmt=self::$dbh->prepare($query);*/
+            }
+			foreach ($Attributs as $Attribi=>$ValueAttribi){
+                //echo ":$Attribi=> $ValueAttribi<br>";
+              //  $stmt->bindValue( ':'.$Attribi , $ValueAttribi);
+			  
+			   if(is_int($ValueAttribi))
+                    $param = \PDO::PARAM_INT;
+                //si le champs est un boolean
+                elseif(is_bool($ValueAttribi))
+                    $param = \PDO::PARAM_BOOL;
+                //si le champs est un NULL
+                elseif(is_null($ValueAttribi))
+                    $param = \PDO::PARAM_NULL;
+                //si le champs est un string
+                elseif(is_string($ValueAttribi))
+                    $param = \PDO::PARAM_STR;
+                //sinon
+				elseif(is_array($ValueAttribi))
+					throw new \Exception("Erreur d'execution de donnée : $Attribi : ".$ValueAttribi);
+
+                else
+                    $param = FALSE;
+			  
+			  // echo ":$Attribi=$ValueAttribi $param<br>";
+				$stmt->bindValue( ":$Attribi" , $ValueAttribi);
+				
+            }
+        
+
+            $res= $stmt->execute();
+            //  echo '<pre>'; $stmt->debugDumpParams() ;echo '</pre>';
+
+            if($res){
+				while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {  
+				  $data[]=$row;  
+				}  
+			 
+			}
+             //print_r($data);
+            // die();
+            return $data;
+        } catch (\PDOException $e) {
+            
+            echo '<pre> ERREUR '; $stmt->debugDumpParams(); print_r($Attributs);echo '</pre>';
+
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+           // die();
+        }
+    }
     public static function SelectWithPrepare($table,$where=null,$orderby=""){
         //self::connect();
         try {
-            $data=[];
+            $data=$Attributs=[];
             $query="SELECT * FROM $table ";
              $WhereParam="";
             if(!empty($where)){
@@ -99,12 +182,16 @@ abstract class dbadapter
                 foreach ($where as $Cond){
                     if(isset($Cond->OR)){
                         $AttributsWhereOR= self::AttributeExtractor($Cond->OR);
+                        $Attributs =array_merge($Attributs,$AttributsWhereOR);
+
                         foreach ($AttributsWhereOR as $Attrib=>$ValueAttrib){
                             $WhereParam.=empty($WhereParam) ? "$Attrib=:$Attrib" : " OR $Attrib=:$Attrib";
                         }
                     }elseif(isset($Cond->AND)){
                         $AttributsWhereAnd= self::AttributeExtractor($Cond->AND);
+                        $Attributs =array_merge($Attributs,$AttributsWhereAnd);
 
+                        print_r($AttributsWhereAnd);
                         foreach ($AttributsWhereAnd as $Attrib=>$ValueAttrib){
                             $WhereParam.=empty($WhereParam) ? "$Attrib=:$Attrib" : " AND $Attrib=:$Attrib";
                         }
@@ -122,7 +209,32 @@ abstract class dbadapter
 				}
                 $stmt=self::$dbh->prepare($query);
             }
+			foreach ($Attributs as $Attribi=>$ValueAttribi){
+                //echo ":$Attribi=> $ValueAttribi<br>";
+              //  $stmt->bindValue( ':'.$Attribi , $ValueAttribi);
+			  
+			   if(is_int($ValueAttribi))
+                    $param = \PDO::PARAM_INT;
+                //si le champs est un boolean
+                elseif(is_bool($ValueAttribi))
+                    $param = \PDO::PARAM_BOOL;
+                //si le champs est un NULL
+                elseif(is_null($ValueAttribi))
+                    $param = \PDO::PARAM_NULL;
+                //si le champs est un string
+                elseif(is_string($ValueAttribi))
+                    $param = \PDO::PARAM_STR;
+                //sinon
+				elseif(is_array($ValueAttribi))
+					throw new \Exception("Erreur d'execution de donnée : $Attribi : ".$ValueAttribi);
 
+                else
+                    $param = FALSE;
+			  
+			   echo ":$Attribi=$ValueAttribi $param<br>";
+				$stmt->bindValue( ":$Attribi" , $ValueAttribi);
+				
+            }
 
             $res= $stmt->execute();
 
@@ -131,6 +243,8 @@ abstract class dbadapter
             }
             return $data;
         } catch (\PDOException $e) {
+            
+
             print "Erreur !: " . $e->getMessage() . "<br/>";
             die();
         }
@@ -216,20 +330,21 @@ abstract class dbadapter
                 else
                     $param = FALSE;
 			  
-			   //echo ":$Attribi=$ValueAttribi $param";
-				$stmt->bindParam( ":$Attribi" , $ValueAttribi,$param);
+			   echo ":$Attribi=$ValueAttribi $param<br>";
+				$stmt->bindParam( ":$Attribi" , $ValueAttribi);
 				
             }
 			 // echo $query;
+             echo '<pre>'; $stmt->debugDumpParams(); print_r($Attributs);echo '</pre>';
             $res= $stmt->execute();
 			 
 			if($res){
 				while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {  
-				  $data[]=$row;  
+				  $data[]=$row;  print_r($row);
 				}  
 			 
 			}
-           
+             
             return $data;
         } catch (\PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
@@ -287,8 +402,8 @@ abstract class dbadapter
                 else
                     $param = FALSE;
 			  
-			  
-				$stmt->bindValue( ':'.$Attribi , $ValueAttribi,$param);
+			 // echo " :$Attribi=$ValueAttribi, $param<br>";
+				$stmt->bindValue( ':'.$Attribi , $ValueAttribi);
 				
             }
 

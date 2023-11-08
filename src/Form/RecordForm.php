@@ -50,7 +50,19 @@ class RecordForm implements Record
      */
     public function setValue($Value)
     {
-        $this->_Value = $Value;
+        if($this->getType()=="checkbox"){
+            if($Value){
+                 $this->_other['checked']='checked';
+            }
+           
+            $this->_Value = $Value;
+        }elseif($this->getType()=="datetime"){
+            $this->_Value = str_replace(" ","T",$Value);
+           // echo $this->_Value."<br>"; 
+        }else{
+            $this->_Value = $Value;
+        }
+        
     }
     /**
      * @return mixed

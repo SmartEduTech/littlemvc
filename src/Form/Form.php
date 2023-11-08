@@ -36,7 +36,7 @@ class  Form{
             foreach ($Values as $key => $Value){
                 if(isset($this->_ElementsForm->_form[$key])){
                     $this->_ElementsForm->_form[$key]->setValue($Value);
-                //   echo"<pre>";  print_r($this->_ElementsForm->_form[$key]);echo"</pre>";
+                   //echo"<pre>";  print_r($this->_ElementsForm->_form[$key]);echo"</pre>";
                 }/*else{
                     throw new \Exception("Initialisation d'une valeur qui ne correspond pas à un atribut $key => $Value");
                 }*/
