@@ -27,4 +27,14 @@ abstract class Utils{
 			echo "<h2  style='text-align:center;'>ا يمكن العثور على الصفحة التي طلبتها.</h2><br></p>";
 			return;
 	}
+
+
+	public static  function FileNameAppele() {
+    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    if (isset($trace[1]['file'])) {
+        $filePath = $trace[1]['file'];
+        return pathinfo($filePath, PATHINFO_FILENAME);
+    }
+    return null;
+  }
 }

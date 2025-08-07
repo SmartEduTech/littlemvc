@@ -1,7 +1,11 @@
 <?php
 
 namespace Smartedutech\Littlemvc\Form;
+
+defined('__DIR__TEMPLATE__') ?: define('__DIR__TEMPLATE__', dirname(__FILE__));
+
 use Smartedutech\Littlemvc\Langue;
+
 
 class  Form{
 
@@ -55,7 +59,7 @@ class  Form{
 
         public function getTemplateElt($EltsType){
 
-            $elts=dirname(__FILE__)."/template/".$this->_Template_Name."/".$EltsType.".temp";
+            $elts=__DIR__TEMPLATE__."/template/".$this->_Template_Name."/".$EltsType.".temp";
             if(file_exists($elts)){
                 return file_get_contents($elts);
             }else{
@@ -287,7 +291,7 @@ class  Form{
           $this->FormElmentContruct();
             // TODO: Implement __toString() method.
             if($this->_Decorator_Template){
-                $elts=dirname(__FILE__)."/template/".$this->_Template_Name."/form.temp";
+                $elts=__DIR__TEMPLATE__."/template/".$this->_Template_Name."/form.temp";
                 if(file_exists($elts)){
                     $formTemplate=file_get_contents($elts);
                 }else{

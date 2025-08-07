@@ -16,7 +16,7 @@ abstract class dbadapter
             try {
                 //print_r(configuration::$_config);
                  //echo 'mysql:host='.configuration::$_config['host'].';dbname='.configuration::$_config['dbname'];
-                self::$dbh = new \PDO('mysql:host='.configuration::$_config['host'].';dbname='.configuration::$_config['dbname'], configuration::$_config['user'] , configuration::$_config['password']);
+                self::$dbh = new \PDO(configuration::$_config['sgbd'].':host='.configuration::$_config['host'].';dbname='.configuration::$_config['dbname'], configuration::$_config['user'] , configuration::$_config['password']);
             self::$dbh->exec("set names utf8");
 			} catch (\PDOException $e) {
                 print "Erreur !: " . $e->getMessage() . "<br/>";
